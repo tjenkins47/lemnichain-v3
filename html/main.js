@@ -1,18 +1,20 @@
 // Load navbar.html dynamically
 document.addEventListener("DOMContentLoaded", () => {
-fetch('navbar.html')
-  .then(res => res.text())
-  .then(data => {
-    const placeholder = document.getElementById('navbar-placeholder');
-    if (placeholder) {
-      placeholder.innerHTML = data;
+  fetch("navbar.html")
+    .then(res => res.text())
+    .then(data => {
+      const placeholder = document.getElementById("navbar-placeholder");
+      if (placeholder) {
+        placeholder.innerHTML = data;
 
-      // Delay theme toggle init to ensure icon is in DOM
-      setTimeout(() => {
-        initThemeToggle();
-      }, 50); // 50ms is usually enough
-    }
-  });
+        // Wait until the DOM actually reflects the injected navbar
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            initThemeToggle();
+          }, 0);
+        });
+      }
+    });
 });
 
 function initThemeToggle() {
